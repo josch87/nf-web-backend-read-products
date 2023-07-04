@@ -13,7 +13,7 @@ export default async function handler(request, response) {
       Product.create(productData);
       return response.status(201).json({ status: "Product created." });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       response.status(400).json({ error: error.message });
     }
   } else {
