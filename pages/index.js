@@ -17,16 +17,20 @@ export default function HomePage() {
     const formData = new FormData(event.target);
     const productData = Object.fromEntries(formData);
 
-    const response = await fetch("/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    });
+    try {
+      const response = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
 
-    if (response.ok) {
-      mutate();
+      if (response.ok) {
+        mutate();
+      }
+    } catch (error) {
+      console.error("handleAddProducts:", error);
     }
   }
 

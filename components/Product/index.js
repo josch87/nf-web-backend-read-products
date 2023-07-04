@@ -18,32 +18,40 @@ export default function Product() {
     const formData = new FormData(event.target);
     const productData = Object.fromEntries(formData);
 
-    const response = await fetch(`/api/products/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(productData),
-    });
+    try {
+      const response = await fetch(`/api/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+      });
 
-    if (response.ok) {
-      mutate();
+      if (response.ok) {
+        mutate();
+      }
+    } catch (error) {
+      console.error("handleUpdateProduct:", error);
     }
   }
 
   async function handleDeleteProduct(id) {
-    const response = await fetch(`/api/products/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      const response = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+      });
 
-    if (response.ok) {
-      await response.json();
-      await fetch(`/api/products`);
-      router.push("/");
-    }
+      if (response.ok) {
+        await response.json();
+        await fetch(`/api/products`);
+        router.push("/");
+      }
 
-    if (!response.ok) {
-      console.error(response.status);
+      if (!response.ok) {
+        console.error(response.status);
+      }
+    } catch (error) {
+      console.error("handleDeleteProduct:", error);
     }
   }
 

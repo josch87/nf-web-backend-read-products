@@ -10,15 +10,25 @@ export default async function handler(request, response) {
     const product = await Product.findById(id);
     return response.status(200).json(product);
   } else if (request.method === "PUT") {
-    await Product.findByIdAndUpdate(id, { $set: request.body });
-    return response
-      .status(200)
-      .json({ status: "Product successfully updated" });
+    try {
+      await Product.findByIdAndUpdate(id, { $set: request.body });
+      return response
+        .status(200)
+        .json({ status: "Product successfully updated" });
+    } catch (error) {
+      console.error(error);
+      response.status(400).json({ error: error.message });
+    }
   } else if (request.method === "DELETE") {
-    await Product.findByIdAndDelete(id);
-    return response
-      .status(200)
-      .json({ status: "Product successfully deleted." });
+    try {
+      await Product.findByIdAndDelete(id);
+      return response
+        .status(200)
+        .json({ status: "Product successfully deleted." });
+    } catch (error) {
+      console.error(error);
+      response.status(400).json({ error: error.message });
+    }
   } else {
     return response.status(405).json({ status: "Method not allowed" });
   }
