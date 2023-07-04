@@ -2,7 +2,12 @@ import { StyledForm, StyledHeading, StyledLabel } from "./ProductForm.styled";
 import { StyledButton } from "../Button/Button.styled";
 import { useState } from "react";
 
-export default function ProductForm({ onSubmit, heading, product }) {
+export default function ProductForm({
+  onSubmit,
+  heading,
+  product,
+  buttonText,
+}) {
   const [nameValue, setNameValue] = useState(product?.name);
   const [descriptionValue, setDescriptionValue] = useState(
     product?.description
@@ -57,7 +62,7 @@ export default function ProductForm({ onSubmit, heading, product }) {
           <option value="GBP">GBP</option>
         </select>
       </StyledLabel>
-      <StyledButton type="submit">Submit</StyledButton>
+      <StyledButton type="submit">{buttonText}</StyledButton>
     </StyledForm>
   );
 }

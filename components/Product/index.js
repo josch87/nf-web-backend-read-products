@@ -79,6 +79,7 @@ export default function Product() {
         <ProductForm
           onSubmit={handleUpdateProduct}
           heading="Update this fish"
+          buttonText="Safe"
           product={data}
         />
       ) : null}
