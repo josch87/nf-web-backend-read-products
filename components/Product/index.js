@@ -38,6 +38,7 @@ export default function Product() {
 
     if (response.ok) {
       await response.json();
+      await fetch(`/api/products`);
       router.push("/");
     }
 
